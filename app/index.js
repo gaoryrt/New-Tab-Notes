@@ -237,56 +237,31 @@ async function handleArchive(e) {
 
 async function toggleColorList(e) {
   const E = e.target.parentNode.parentNode.parentNode;
-  const checkEle = document.querySelector(".colors-list");
-  const createColorsList = () => {
-    const colorsList = document.createElement("div");
-    colorsList.classList.add("colors-list");
-    colors.forEach((ele) => {
-      const colorOption = document.createElement("button");
-      colorOption.classList.add("color-option");
-      colorOption.style.background = `#${ele[1]}`;
-      colorOption.addEventListener("click", async () => {
-        E.dataset.hc = `#${ele[1]}`;
-        E.dataset.bg = `#${ele[0]}`;
-        E.children[0].style.background = `#${ele[1]}`;
-        E.children[1].style.background = `#${ele[0]}`;
 
-        await chrome.storage.local.set({
-          [E.dataset.uuid]: {
-            text: E.children[1].value,
-            bg: `#${ele[0]}`,
-            hc: `#${ele[1]}`,
-            width: E.dataset.width,
-            height: E.dataset.height,
-            top: E.dataset.top,
-            left: E.dataset.left,
-            archived: E.dataset.archived,
-            date: E.dataset.date,
-          },
-        });
-        colorsList.remove();
-      });
+  const hue = Math.floor(Math.random() * 360);
+  const ahue = (hue + 15) % 360;
 
-      colorsList.appendChild(colorOption);
-    });
-    const closeColorListBtn = document.createElement("button");
-    closeColorListBtn.classList.add("close-color-list");
-    closeColorListBtn.textContent = "X";
-    closeColorListBtn.addEventListener("click", () => {
-      colorsList.remove();
-    });
+  const color1 = `hsl(${hue}, 50%, 85%)`;
+  const color2 = `hsl(${ahue}, 50%, 93%)`;
 
-    colorsList.appendChild(closeColorListBtn);
+  E.dataset.hc = color1;
+  E.dataset.bg = color2;
+  E.children[0].style.background = color1;
+  E.children[1].style.background = color2;
 
-    E.appendChild(colorsList);
-  };
-
-  if (checkEle) {
-    checkEle.remove();
-    createColorsList();
-  } else {
-    createColorsList();
-  }
+  await chrome.storage.local.set({
+    [E.dataset.uuid]: {
+      text: E.children[1].value,
+      bg: color2,
+      hc: color1,
+      width: E.dataset.width,
+      height: E.dataset.height,
+      top: E.dataset.top,
+      left: E.dataset.left,
+      archived: E.dataset.archived,
+      date: E.dataset.date,
+    },
+  });
 }
 
 async function updateTextAreaContent(el, text) {
@@ -482,6 +457,10 @@ fontForm.addEventListener("change", handleFontSettings);
 colorFrom.addEventListener("change", handleBgConfig);
 isShortCutEnabled.addEventListener("change", handleNotesSettings);
 document.addEventListener("keydown", (e) => {
+  if (e.code === "KeyS" && e.metaKey) {
+    e.preventDefault();
+  }
+
   // EXP: shortcut
   if (shortcutEnabled == "on") {
     if (e.code === "KeyT" && e.altKey) {

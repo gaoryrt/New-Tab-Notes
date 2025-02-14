@@ -135,34 +135,6 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.icon:hover {
-  /* background: #d3cccc; */
-}
-
-.colors-list {
-  /* width: 160px; */
-  /* height: 20px; */
-  background: #ffeeee;
-  padding: 10px;
-  /* for colorsList */
-  position: absolute;
-  top: 36px;
-  right: 8px;
-  z-index: 100;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.color-option,
-.close-color-list {
-  margin: 0px 3px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-
 .archive-toolip::after {
   content: "Archive";
   position: absolute;
