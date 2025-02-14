@@ -353,8 +353,8 @@ async function createNote() {
       left: `${innerWidth / 2 - 100}px`,
       width: "300px",
       height: "300px",
-      bg: "#F3ECC3",
-      hc: "#F8DD4E",
+      bg: "white",
+      hc: "#f0f1f2",
       date: date,
     },
   });
