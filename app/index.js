@@ -73,7 +73,7 @@ async function intialStyleConfig() {
     CONFIG.fontSize == undefined ? "inherit" : CONFIG.fontSize + "px";
 
   document.querySelector(".font-size-in").value =
-    CONFIG.fontSize == undefined ? "18" : CONFIG.fontSize;
+    CONFIG.fontSize == undefined ? "14" : CONFIG.fontSize;
 }
 
 async function deleteAllNotes() {
@@ -482,10 +482,48 @@ fontForm.addEventListener("change", handleFontSettings);
 colorFrom.addEventListener("change", handleBgConfig);
 isShortCutEnabled.addEventListener("change", handleNotesSettings);
 document.addEventListener("keydown", (e) => {
+  // EXP: shortcut
   if (shortcutEnabled == "on") {
-    if (e.keyCode == "65" && e.altKey) {
+    if (e.code === "KeyT" && e.altKey) {
       createNote();
     }
+  }
+
+  // EXP: tab func
+  if (e.code === "Tab") {
+    const textArea = document.activeElement;
+    const start = textArea.selectionStart;
+    const end = textArea.selectionEnd;
+    textArea.setRangeText("\t", start, end, "end");
+    e.preventDefault();
+  }
+
+  // EXP: cmd + enter insert a new line at the end of current line
+  if (e.code === "Enter" && e.metaKey) {
+    const textArea = document.activeElement;
+    const start = textArea.selectionStart;
+    const end = textArea.selectionEnd;
+    if (start === end) {
+      const lineBreakIndex = textArea.value.indexOf("\n", start);
+      if (lineBreakIndex === -1) {
+        textArea.setRangeText(
+          "\n",
+          textArea.value.length,
+          textArea.value.length,
+          "end"
+        );
+      } else {
+        textArea.setRangeText(
+          "\n",
+          lineBreakIndex + 1,
+          lineBreakIndex + 1,
+          "start"
+        );
+      }
+    } else {
+      textArea.setRangeText("\n", start, end, "end");
+    }
+    e.preventDefault();
   }
 });
 

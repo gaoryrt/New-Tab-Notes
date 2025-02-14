@@ -1,18 +1,19 @@
 @font-face {
-  font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?bhlbw9');
-  src:  url('fonts/icomoon.eot?bhlbw9#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?bhlbw9') format('truetype'),
-    url('fonts/icomoon.woff?bhlbw9') format('woff'),
-    url('fonts/icomoon.svg?bhlbw9#icomoon') format('svg');
+  font-family: "icomoon";
+  src: url("fonts/icomoon.eot?bhlbw9");
+  src: url("fonts/icomoon.eot?bhlbw9#iefix") format("embedded-opentype"),
+    url("fonts/icomoon.ttf?bhlbw9") format("truetype"),
+    url("fonts/icomoon.woff?bhlbw9") format("woff"),
+    url("fonts/icomoon.svg?bhlbw9#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: "icomoon" !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -23,6 +24,14 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  transition: opacity 0.2s;
+  opacity: 0.1;
+}
+
+[class^="icon-"]:hover,
+[class*=" icon-"]:hover {
+  opacity: 1;
 }
 
 .icon-gear:before {
