@@ -241,8 +241,8 @@ async function toggleColorList(e) {
   const hue = Math.floor(Math.random() * 360);
   const ahue = (hue + 15) % 360;
 
-  const color1 = `hsl(${hue}, 50%, 85%)`;
-  const color2 = `hsl(${ahue}, 50%, 93%)`;
+  const color1 = `hsla(${hue}, 50%, 85%, 62%)`;
+  const color2 = `hsla(${ahue}, 50%, 93%, 62%)`;
 
   E.dataset.hc = color1;
   E.dataset.bg = color2;
@@ -534,6 +534,12 @@ document.querySelector(".collapse-sidemenu").addEventListener("click", (e) => {
     settingsBtn.style.display = "inline";
     viewArchiveBtn.style.display = "inline";
     viewAllNotesBtn.style.display = "inline";
+  }
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    fetchAllNotes();
   }
 });
 
